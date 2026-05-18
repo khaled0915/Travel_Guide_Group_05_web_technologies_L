@@ -47,7 +47,14 @@ function route_url(string $route, array $params = []): string
 function asset_url(string $path): string
 {
     $prefix = base_url() === '/' ? '' : base_url();
-    return $prefix . '/' . ltrim($path, '/');
+    $url = $prefix . '/' . ltrim($path, '/');
+    $assetPath = app_path('public/' . ltrim($path, '/'));
+
+    if (is_file($assetPath)) {
+        $url .= '?v=' . filemtime($assetPath);
+    }
+
+    return $url;
 }
 
 function redirect_to(string $route, array $params = []): never

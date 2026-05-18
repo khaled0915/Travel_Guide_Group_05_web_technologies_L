@@ -10,11 +10,30 @@
     const fields = ['title', 'short_history', 'country', 'country_representation', 'genre', 'cost_level', 'travel_medium_info'];
 
     const setFormData = (payload = {}) => {
-        form.request_id.value = payload.id || payload.request_id || 0;
-        form.original_post_id.value = payload.original_post_id || 0;
+        const postData = typeof payload.post_data === 'string'
+            ? JSON.parse(payload.post_data)
+            : (payload.post_data || {});
+
+        const formPayload = {
+            ...payload,
+            ...postData,
+        };
+
+        const requestIdField = form.elements.namedItem('request_id');
+        const originalPostIdField = form.elements.namedItem('original_post_id');
+
+        if (requestIdField) {
+            requestIdField.value = formPayload.id || formPayload.request_id || 0;
+        }
+
+        if (originalPostIdField) {
+            originalPostIdField.value = formPayload.original_post_id || 0;
+        }
+
         fields.forEach((field) => {
-            if (form[field]) {
-                form[field].value = payload[field] || '';
+            const input = form.elements.namedItem(field);
+            if (input && 'value' in input) {
+                input.value = formPayload[field] || '';
             }
         });
     };

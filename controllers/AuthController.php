@@ -46,7 +46,6 @@ class AuthController
             'pageTitle' => 'Login',
             'errors' => $errors,
             'email' => $email,
-            'pageScripts' => ['assets/js/auth.js'],
         ]);
     }
 
@@ -88,7 +87,6 @@ class AuthController
             'pageTitle' => 'Register',
             'errors' => $errors,
             'data' => $data,
-            'pageScripts' => ['assets/js/auth.js'],
         ]);
     }
 
@@ -179,7 +177,6 @@ class AuthController
             'pageTitle' => 'Profile',
             'errors' => $errors,
             'user' => $user,
-            'pageScripts' => ['assets/js/auth.js'],
         ]);
     }
 
